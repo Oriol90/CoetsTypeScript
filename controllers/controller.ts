@@ -106,42 +106,49 @@ function colorProgressBar(power:number, progressBar:HTMLProgressElement){
             break;
         case 10:
             progressBar.textContent = "10";
+            progressBar.value = 10;
             progressBar.style.width = "12.5%";
             progressBar.className = "progress-bar progress-bar-striped bg-info";
             break;
         case 20:
             progressBar.textContent = "20";
+            progressBar.value = 20;
             progressBar.style.width = "25%";
             progressBar.className = "progress-bar progress-bar-striped bg-info";
             break;
         case 30:
             progressBar.textContent = "30";
+            progressBar.value = 30;
             progressBar.style.width = "37.5%";
             progressBar.className = "progress-bar progress-bar-striped bg-success";
             break;
         case 40:
             progressBar.textContent = "40";
-            progressBar.textContent = "0";
+            progressBar.value = 40;
             progressBar.style.width = "50%";
             progressBar.className = "progress-bar progress-bar-striped bg-success";
             break;
         case 50:
             progressBar.textContent = "50";
+            progressBar.value = 50;
             progressBar.style.width = "62.5%";
             progressBar.className = "progress-bar progress-bar-striped bg-warning";
             break;
         case 60:
             progressBar.textContent = "60";
+            progressBar.value = 60;
             progressBar.style.width = "75%";
             progressBar.className = "progress-bar progress-bar-striped bg-warning";
             break;
         case 70:
             progressBar.textContent = "70";
+            progressBar.value = 70;
             progressBar.style.width = "87.5%";
             progressBar.className = "progress-bar progress-bar-striped bg-danger";
             break;
         case 80:
             progressBar.textContent = "80";
+            progressBar.value = 80;
             progressBar.style.width = "100%";
             progressBar.className = "progress-bar progress-bar-striped bg-danger";
             break;
@@ -152,20 +159,26 @@ function colorProgressBar(power:number, progressBar:HTMLProgressElement){
 }  
 
 function increasePower(button:any){
-    console.log(button);
     let idButton:string = button.id;
     let numRocket:number = parseInt(idButton.charAt(3));
 
     for(let i:number = 1; i<7; i++){
         let progressBar:HTMLProgressElement = button.parentNode.parentNode.parentNode.childNodes[5].childNodes[i*2-1].childNodes[1].childNodes[1];
-        //let divThrusters:HTMLDivElement = button.parentNode.parentNode.parentNode.childNodes[5].childNodes[i*2-1];
-        let powerThruster:any = progressBar.textContent;
-        if(arrayRockets[numRocket-1].maxPower[i-1] != powerThruster){
-            colorProgressBar(50, progressBar);
+        let powerThruster:number = progressBar.value;
+        if(arrayRockets[numRocket-1].maxPower[i-1] != powerThruster && arrayRockets[numRocket-1].maxPower[i-1] != 0){
+            colorProgressBar(powerThruster + 10, progressBar);
         }
     }
 }
 
-function decreasePower(e:any){
-
+function decreasePower(button:any){
+    let idButton:string = button.id;
+    let numRocket:number = parseInt(idButton.charAt(3));
+    for(let i:number = 1; i<7; i++){
+        let progressBar:HTMLProgressElement = button.parentNode.parentNode.parentNode.childNodes[5].childNodes[i*2-1].childNodes[1].childNodes[1];
+        let powerThruster:number = progressBar.value;
+        if(powerThruster != 0 && powerThruster != 10){
+            colorProgressBar(powerThruster - 10, progressBar);
+        }
+    }
 }
