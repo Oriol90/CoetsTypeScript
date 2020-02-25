@@ -13,14 +13,19 @@ function addRocket() {
     var nameRocket = document.getElementById('nameRocket').value;
     var numThrusters = parseInt(document.getElementById('numThrusters').value);
     var maxPowerInputs = document.getElementsByClassName('maxPowerInputs');
-    if (checkPower(maxPowerInputs, numThrusters)) {
-        var maxPower = [0, 0, 0, 0, 0, 0];
-        for (var i = 0; i < numThrusters; i++) {
-            maxPower[i] = parseInt(maxPowerInputs[i].value);
+    if (nameRocket.length > 7) {
+        if (checkPower(maxPowerInputs, numThrusters)) {
+            var maxPower = [0, 0, 0, 0, 0, 0];
+            for (var i = 0; i < numThrusters; i++) {
+                maxPower[i] = parseInt(maxPowerInputs[i].value);
+            }
+            var rocketX = new Rocket(nameRocket, numThrusters, maxPower);
+            arrayRockets.push(rocketX);
+            addCode(rocketX);
         }
-        var rocketX = new Rocket(nameRocket, numThrusters, maxPower);
-        arrayRockets.push(rocketX);
-        addCode(rocketX);
+    }
+    else {
+        alert("El nom del coet ha de tenir 8 caràcters o més.");
     }
 }
 function addCode(rocket) {
